@@ -11,6 +11,7 @@ use Illuminate\Support\Arr;
 
 
 Route::get('/', function () {
+
     return view('home');
 });
 
@@ -25,8 +26,8 @@ Route::get('/jobs/{id}', function ($id) {
     return view('job', ['job' => $job]);
 });
 
-Route::get('/contact', function () {
-    return view('contact');
+Route::get('/contato', function () {
+    return view('contato');
 });
 
 
