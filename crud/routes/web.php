@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Job;
 use App\Http\Controllers\ProdutoController;
@@ -10,48 +11,14 @@ use Illuminate\Support\Arr;
 
 
 
-Route::get('/', function () {
-
-    return view('home');
-});
 
 
-Route::get('/jobs', function () {
-    $jobs = Job::with('employer')->latest()->paginate(3);
+Route::view('/', '/home');
 
-    return view('jobs.index', [
-        'jobs' => $jobs
-    ]);
-});
+Route::view('/contato', 'contato');
 
+Route::resource('jobs', JobController::class);
 
-Route::get('/jobs/create', function () {
-    return view('jobs.create');
-});
-
-
-Route::get('/jobs/{id}', function ($id) {
-    $job = Job::find($id);
-
-    return view('jobs.show', ['job' => $job]);
-});
-
-
-Route::post('/jobs', function () {
-    // validation...
-
-    Job::create([
-        'title' => request('title'),
-        'salary' => request('salary'),
-        'employer_id' => 1
-    ]);
-
-    return redirect('/jobs');
-});
-
-Route::get('/contato', function () {
-    return view('contato');
-});
 
 
 Route::resource('produtos', ProdutoController::class);
